@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  <style>
+      body{
+          margin: 0;
+          font-family: 'Times New Roman', Times, serif;
+          font-size: 24px;
+      }
+      .container{
+          width: 80% auto;
+          margin: 4em auto;
+      }
+      button{
+          border: none;
+          outline: none;
+          padding: 1em 1.5em;
+          font-size: 1rem;
+          margin-top:2em ;
+          cursor: pointer;
+          background: rgb(158,0,250);
+          color: white;
+          font-weight: bold;
+          will-change: background;
+          transition: background 1s;
+      }
+       button:hover{
+          background: rgb(229,0,250);
+      
+        }
+
+        .overlay{
+            content: '';
+            opacity: 1;
+            position: absolute;
+            z-index: 0;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+
+        }
+        .share{
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 30%;
+            margin: auto;
+            width: 50%;
+            padding: 1em;
+            background: white;
+        }
+        .share,.overlay{
+            display: none;
+        }
+        .show-share{
+            display: block;
+        }
+  </style>
+
+</head>
+<body>
+    <div class="conatiner" >
+     <h1>Shalu Rani</h1>
+    <p>
+     Hi , how you doing?
+    </p>
+    <button>Share this Story</button>
+    </div>
+
+    <div class="overlay"></div>
+
+    <div class="share">
+        <button>Social Link</button>
+        <button>Social Link</button>
+        <button>Social Link</button>
+    </div>
+
+
+    <script>
+        const shareButton = document.querySelector('button');
+        const overlay = document.querySelector('.overlay');
+        const shareModal = document.querySelector('.share');
+        const title = window.document.title;
+        const url = window.document.location.href;
+
+        shareButton.addEventListener('click',()=>{
+            if(navigator.share){
+            navigator.share({
+                title:`${title}`,
+                url:`${url}`
+            }).then(()=>{
+                alert('thanks ')
+            }).catch(console.error)
+            } else{
+               overlay.classList.add('show-share');
+               shareModal.classList.add('show-share')
+            }
+          
+        })
+                      overlay.addEventListener('click',()=>{
+                          overlay.classList.remove('show-share')
+                          shareModal.classList.remove('show-share')
+                      })
+    </script>
+</body>
+</html>
